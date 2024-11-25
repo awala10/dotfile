@@ -151,6 +151,6 @@
      bind b break-pane -d
      '';
   };
-  programs.git  = git pkgs;
+  programs.git  = git;
 
 }
