@@ -3,7 +3,7 @@
     unstable = import <nixos-unstable> {};
     bashsettings = import ./bash.nix;
     packages =  import ./packages.nix pkgs;
-    git = import ./git pkgs;
+    git = import ./git.nix;
   in
 {
   # Home Manager needs a bit of information about you and the paths it should
@@ -151,9 +151,6 @@
      bind b break-pane -d
      '';
   };
-  programs.git  = {
-    enable = true;
-    userName = "awala10";
-    userEmail = "khalad.awala@gmail.com";
-  };
+  programs.git  = git pkgs;
+
 }
