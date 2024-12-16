@@ -32,5 +32,9 @@ syntax on
   let g:airline_powerline_forts = 1
   let g:airline_theme='dark'
   colorscheme dracula
-  "remove hightlight from world on ENTER when searching.
+  "remove hightlight from world on ENTER when searching
   nnoremap <silent><CR> :noh<CR>
+  let g:LanguageClient_serverCommands = {
+    \ 'nix': ['rnix-lsp']
+\ }
+

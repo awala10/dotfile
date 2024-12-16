@@ -1,10 +1,10 @@
 { config, pkgs, ... }:
-  let
-    unstable = import <nixos-unstable> {};
-    bashsettings = import ./bash.nix;
-    packages =  import ./packages.nix pkgs;
-    git = import ./git.nix;
-  in
+let
+  unstable = import <nixos-unstable> { };
+  bashsettings = import ./bash.nix;
+  packages = import ./packages.nix pkgs;
+  git = import ./git.nix;
+in
 {
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
@@ -38,9 +38,9 @@
     #   org.gradle.daemon.idletimeout=3600000
     # '';
   };
- # imports = [
- #   ./bash.nix
- # ];
+  # imports = [
+  #   ./bash.nix
+  # ];
 
   # Home Manager can also manage your environment variables through
   # 'home.sessionVariables'. These will be explicitly sourced when using a
@@ -64,7 +64,7 @@
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
-  programs.neovim= {
+  programs.neovim = {
     enable = true;
     #package =  unstable.vim;
     defaultEditor = true;
@@ -74,6 +74,9 @@
       vim-nftables
       gruvbox-material
       align
+      telescope-nvim
+      nvim-treesitter-parsers.nix
+      telescope-fzf-native-nvim
       dracula-vim
       undotree
       vim-sensible
@@ -88,16 +91,20 @@
       vim-terraform
       vim-tmux-navigator
       vim-gitgutter
-  #   YouCompleteMe
-  #   vim-one
-     ];
-  extraConfig = builtins.readFile ./vimrc;
+      #   YouCompleteMe
+      #   vim-one
+    ];
+      extraConfig = builtins.readFile ./vimrc;
+    extraPackages = with pkgs; [
+      nixd
+      #nix-lsp
+    ];
   };
   programs.bash = bashsettings pkgs;
   programs.tmux = {
     enable = true;
     shortcut = "space";
-    clock24= true;
+    clock24 = true;
     historyLimit = 1000;
     keyMode = "vi";
     baseIndex = 1;
@@ -106,51 +113,51 @@
       vim-tmux-navigator
       cpu
     ];
-   # extracConfig = builtins.readFile ./tmux.conf;
-   extraConfig = ''
-    set -g default-shell $SHELL
-  # Mouse
-    set -g mouse on
-  # History
-  # set -g history-limit 102400
-  # Set windows and page index to base 1
-  # set -g base-index 1
-    setw -g pane-base-index 1
-  # Re-number windows when creating/closing new windows
-    set -g renumber-windows on
-  # Use emacs key bindings in status line
-    set-option -g status-keys emacs
-  # Use vim key bindings in copy mode
-  # setw -g mode-keys vi
-  # Fix ESC delay in vim
-    set -g escape-time 10
-   # ------------#
-   # Keybindings #
-   # ------------#
-   # Set prefix to C-a
-   # unbind C-b
-  #  set -g prefix C-space
-   # Copy-mode
-     unbind-key -T copy-mode-vi v
-     bind-key -T copy-mode-vi v send-keys -X begin-selection
-     bind-key -T copy-mode-vi 'C-v' send-keys -X rectangle-toggle
-     bind-key -T copy-mode-vi y send-keys -X copy-pipe "pbcopy"
-     bind-key -T copy-mode-vi MouseDragEnd1Pane send-keys -X copy-pipe-and-cancel "pbcopy"
-     bind-key -T copy-mode-vi Escape send-keys -X cancel
-   # Send command on double press
-     bind C-a send-prefix
-     bind C-l send-keys 'C-l'
-   # Reload tmux.conf on prefix r
-   # bind r source-file ~/.tmux.conf \; display "Config reloaded!"
-   # Split panes and remember current path
-     bind '|' split-window -h -c '#{pane_current_path}'
-     bind - split-window -v -c '#{pane_current_path}'
-     # Remember current path when creating new windows
-     bind c new-window -c '#{pane_current_path}'
-     # Break pane into new window and keep focus on the current window
-     bind b break-pane -d
-     '';
+    # extracConfig = builtins.readFile ./tmux.conf;
+    extraConfig = ''
+        set -g default-shell $SHELL
+      # Mouse
+        set -g mouse on
+      # History
+      # set -g history-limit 102400
+      # Set windows and page index to base 1
+      # set -g base-index 1
+        setw -g pane-base-index 1
+      # Re-number windows when creating/closing new windows
+        set -g renumber-windows on
+      # Use emacs key bindings in status line
+        set-option -g status-keys emacs
+      # Use vim key bindings in copy mode
+      # setw -g mode-keys vi
+      # Fix ESC delay in vim
+        set -g escape-time 10
+       # ------------#
+       # Keybindings #
+       # ------------#
+       # Set prefix to C-a
+       # unbind C-b
+      #  set -g prefix C-space
+       # Copy-mode
+         unbind-key -T copy-mode-vi v
+         bind-key -T copy-mode-vi v send-keys -X begin-selection
+         bind-key -T copy-mode-vi 'C-v' send-keys -X rectangle-toggle
+         bind-key -T copy-mode-vi y send-keys -X copy-pipe "pbcopy"
+         bind-key -T copy-mode-vi MouseDragEnd1Pane send-keys -X copy-pipe-and-cancel "pbcopy"
+         bind-key -T copy-mode-vi Escape send-keys -X cancel
+       # Send command on double press
+         bind C-a send-prefix
+         bind C-l send-keys 'C-l'
+       # Reload tmux.conf on prefix r
+       # bind r source-file ~/.tmux.conf \; display "Config reloaded!"
+       # Split panes and remember current path
+         bind '|' split-window -h -c '#{pane_current_path}'
+         bind - split-window -v -c '#{pane_current_path}'
+         # Remember current path when creating new windows
+         bind c new-window -c '#{pane_current_path}'
+         # Break pane into new window and keep focus on the current window
+         bind b break-pane -d
+    '';
   };
-  programs.git  = git;
+  programs.git = git;
 
 }
