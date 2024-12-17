@@ -66,16 +66,16 @@ in
   programs.home-manager.enable = true;
   programs.neovim = {
     enable = true;
-    #package =  unstable.vim;
+    package =  pkgs.neovim-nightly;
     defaultEditor = true;
     vimAlias = true;
     viAlias = true;
     plugins = with pkgs.vimPlugins; [
+      lsp-progress-nvim
       vim-nftables
       gruvbox-material
       align
       telescope-nvim
-      nvim-treesitter-parsers.nix
       telescope-fzf-native-nvim
       dracula-vim
       undotree
@@ -93,8 +93,9 @@ in
       vim-gitgutter
       #   YouCompleteMe
       #   vim-one
+      nvim-treesitter.withAllGrammars
     ];
-      extraConfig = builtins.readFile ./vimrc;
+    extraConfig = builtins.readFile ./vimrc;
     extraPackages = with pkgs; [
       nixd
       #nix-lsp

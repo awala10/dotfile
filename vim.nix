@@ -21,9 +21,9 @@ pkgs:
     vim-terraform
     vim-tmux-navigator
     vim-gitgutter
-#   YouCompleteMe
+    #   YouCompleteMe
     # vim-one
   ];
 
   extraConfig = builtins.readFile ./vimrc;
-  }
+}

@@ -22,15 +22,15 @@ pkgs: {
   };
   bashrcExtra = ''
     shopt -s autocd
-      '';
+  '';
   initExtra = ''
-    set -o vi
-    export EDITOR=vim
-    export XDG_CONFIG_HOME="$HOME/.config"
-    [[ $TERM != "screen" ]] && exec tmux
-   if [ -z "$TMUX" ]; then
-      tmux attach -t nixOS || tmux new -s nixOS
-   fi
+     set -o vi
+     export EDITOR=vim
+     export XDG_CONFIG_HOME="$HOME/.config"
+     [[ $TERM != "screen" ]] && exec tmux
+    if [ -z "$TMUX" ]; then
+       tmux attach -t nixOS || tmux new -s nixOS
+    fi
 
-    '';
-  }
+  '';
+}
