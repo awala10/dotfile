@@ -66,7 +66,7 @@ in
   programs.home-manager.enable = true;
   programs.neovim = {
     enable = true;
-   # package =  pkgs.neovim-nightly;
+    # package =  pkgs.neovim-nightly;
     defaultEditor = true;
     vimAlias = true;
     viAlias = true;
