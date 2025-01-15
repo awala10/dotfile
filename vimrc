@@ -1,5 +1,5 @@
 syntax on
-  set background=light
+  set background=dark
   filetype plugin indent on
   set nocompatible
   set hlsearch
@@ -26,15 +26,16 @@ syntax on
   vnoremap kj <esc>
   nnoremap <space> :
   set list listchars+=eol:¬,trail:¶
-  let &t_SI="\e[6 q"
+  let &t_SI="\e[3 q"
   let &t_EI="\e[1 q"
+  set guicursor=i:blinkon1
   autocmd BufWritePre * %s/\s\+$//e
   let g:airline_powerline_forts = 1
   let g:airline_theme='dark'
-  colorscheme dracula
+  colorscheme gruvbox-material "dracula
   "remove hightlight from world on ENTER when searching
   nnoremap <silent><CR> :noh<CR>
-  let g:LanguageClient_serverCommands = {
-    \ 'nix': ['rnix-lsp']
-\ }
+"  let g:LanguageClient_serverCommands = {
+"     'nix': ['rnix-lsp']
+"  }
 
